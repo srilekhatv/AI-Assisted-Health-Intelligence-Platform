@@ -1,0 +1,32 @@
+# --------------------
+# Data files (NEVER commit)
+# --------------------
+datasets/
+*.csv
+*.parquet
+*.json
+*.xlsx
+
+# --------------------
+# Credentials & secrets
+# --------------------
+.env
+*.key
+*.pem
+*.credentials
+
+# --------------------
+# Python artifacts
+# --------------------
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# --------------------
+# OS / editor noise
+# --------------------
+.DS_Store
+Thumbs.db
+.vscode/
