@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: >
+      Date dimension with one row per calendar day.
+      Provides standardized calendar attributes used across inpatient claims
+      analytics, including admissions, discharges, length of stay, and cost trends.
+      Designed as a shared dimension for all fact tables requiring time-based analysis.
+
+    columns:
+      - name: date_key
+        description: Integer date key in YYYYMMDD format.
+        tests:
+          - not_null
+          - unique
+
+      - name: full_date
+        description: Calendar date.
+        tests:
+          - not_null
+
+      - name: year
+        description: Calendar year.
+        tests:
+          - not_null
+
+      - name: month
+        description: Calendar month number (1–12).
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1,2,3,4,5,6,7,8,9,10,11,12]
+
+      - name: day
+        description: Day of month (1–31).
+        tests:
+          - not_null
+
+      - name: day_of_week_num
+        description: ISO day of week number (1=Monday, 7=Sunday).
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1,2,3,4,5,6,7]
+
+      - name: is_weekend
+        description: Flag indicating whether the date falls on a weekend.
+        tests:
+          - not_null
+
+      - name: is_month_start
+        description: Flag indicating the first day of a calendar month.
+        tests:
+          - not_null
+
+      - name: is_month_end
+        description: Flag indicating the last day of a calendar month.
+        tests:
+          - not_null
