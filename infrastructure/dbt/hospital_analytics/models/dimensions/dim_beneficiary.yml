@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: dim_beneficiary
+    description: "Patient (beneficiary) dimension built from CMS DE-SynPUF data. One row per unique beneficiary."
+
+    columns:
+      - name: beneficiary_key
+        description: "Surrogate primary key for beneficiary"
+        tests:
+          - not_null
+          - unique
+
+      - name: desynpuf_id
+        description: "CMS beneficiary natural identifier"
+        tests:
+          - not_null
+          - unique
+
+      - name: birth_date
+        description: "Beneficiary date of birth"
+        tests:
+          - not_null
+
+      - name: death_date
+        description: "Beneficiary date of death (nullable if alive)"
+
+      - name: sex_code
+        description: "CMS beneficiary sex code"
+
+      - name: race_code
+        description: "CMS beneficiary race code"
+
+      - name: esrd_indicator
+        description: "End Stage Renal Disease indicator (true/false)"
+
+      - name: state_code
+        description: "State code of beneficiary residence"
+
+      - name: county_code
+        description: "County code of beneficiary residence"
+
+      - name: record_source
+        description: "Source system for beneficiary data"
