@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: stg_beneficiary_2008
+    description: "Staging model for CMS DE-SynPUF beneficiary data for year 2008"
+    columns:
+      - name: desynpuf_id
+        description: "CMS beneficiary identifier"
+        tests:
+          - not_null
+          - unique
+
+      - name: birth_date
+        description: "Beneficiary date of birth"
+        tests:
+          - not_null
+
+      - name: beneficiary_year
+        description: "Calendar year of beneficiary record"
+        tests:
+          - accepted_values:
+              values: [2008]
+
+      - name: part_a_coverage_months
+        tests:
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+      - name: part_b_coverage_months
+        tests:
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+      - name: hmo_coverage_months
+        tests:
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+      - name: part_d_coverage_months
+        tests:
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+  - name: stg_beneficiary_2009
+    description: "Staging model for CMS DE-SynPUF beneficiary data for year 2009"
+    columns:
+      - name: desynpuf_id
+        tests:
+          - not_null
+          - unique
+
+      - name: birth_date
+        tests:
+          - not_null
+
+      - name: beneficiary_year
+        tests:
+          - accepted_values:
+              values: [2009]
+
+  - name: stg_beneficiary_2010
+    description: "Staging model for CMS DE-SynPUF beneficiary data for year 2010"
+    columns:
+      - name: desynpuf_id
+        tests:
+          - not_null
+          - unique
+
+      - name: birth_date
+        tests:
+          - not_null
+
+      - name: beneficiary_year
+        tests:
+          - accepted_values:
+              values: [2010]
