@@ -15,3 +15,8 @@ sources:
 
       - name: BENEFICIARY_2010
         description: "Raw CMS beneficiary data for year 2010"
+
+      - name: BENEFICIARY_ELIGIBILITY_YEAR
+        description: >
+          Raw CMS DE-SynPUF beneficiary eligibility and chronic condition data.
+          One row per beneficiary per calendar year.
