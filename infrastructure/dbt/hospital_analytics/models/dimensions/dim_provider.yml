@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: dim_provider
+    description: "Provider dimension for inpatient claims (CMS DE-SynPUF)"
+
+    columns:
+      - name: provider_key
+        description: "Surrogate key for provider dimension"
+        tests:
+          - not_null
+          - unique
+
+      - name: provider_id
+        description: "CMS provider identifier (PRVDR_NUM)"
+        tests:
+          - not_null
+          - unique
+
+      - name: provider_type
+        description: "Type of provider derived from claim context"
+        tests:
+          - accepted_values:
+              values: ['Inpatient Hospital']
+
+      - name: data_source
+        description: "Source system for provider data"
+        tests:
+          - accepted_values:
+              values: ['CMS DE-SynPUF']
+
+      - name: effective_start_date
+        description: "First observed claim date for provider"
+
+      - name: effective_end_date
+        description: "Last observed claim date for provider"
+
+      - name: is_current
+        description: "Flag indicating current active provider record"
