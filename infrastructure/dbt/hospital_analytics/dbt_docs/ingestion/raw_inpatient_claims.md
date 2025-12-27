@@ -62,31 +62,43 @@ The RAW table mirrors the CMS DE-SynPUF inpatient claims file structure.
 
 ```sql
 CREATE TABLE inpatient_claims (
-    DESYNPUF_ID STRING,
-    CLM_ID STRING,
-    SEGMENT STRING,
+    -- 1–3 Identifiers
+    DESYNPUF_ID STRING,                 
+    CLM_ID STRING,                      
+    SEGMENT STRING,                     
 
-    CLM_FROM_DT STRING,
-    CLM_THRU_DT STRING,
-    CLM_ADMSN_DT STRING,
-    NCH_BENE_DSCHRG_DT STRING,
+    -- 4–5 Claim dates (string, raw)
+    CLM_FROM_DT STRING,                 
+    CLM_THRU_DT STRING,                 
 
-    PRVDR_NUM STRING,
-    CLM_PMT_AMT NUMBER,
-    NCH_PRMRY_PYR_CLM_PD_AMT NUMBER,
+    -- 6 Provider
+    PRVDR_NUM STRING,                   
 
-    AT_PHYSN_NPI STRING,
-    OP_PHYSN_NPI STRING,
-    OT_PHYSN_NPI STRING,
+    -- 7–8 Payments
+    CLM_PMT_AMT NUMBER,                 
+    NCH_PRMRY_PYR_CLM_PD_AMT NUMBER,    
 
-    ADMTNG_ICD9_DGNS_CD STRING,
-    CLM_PASS_THRU_PER_DIEM_AMT NUMBER,
-    NCH_BENE_IP_DDCTBL_AMT NUMBER,
-    NCH_BENE_PTA_COINSRNC_LBLTY_AMT NUMBER,
-    NCH_BENE_BLOOD_DDCTBL_LBLTY_AMT NUMBER,
-    CLM_UTLZTN_DAY_CNT NUMBER,
-    CLM_DRG_CD STRING,
+    -- 9–11 Physician NPIs
+    AT_PHYSN_NPI STRING,                
+    OP_PHYSN_NPI STRING,                
+    OT_PHYSN_NPI STRING,                
 
+    -- 12 Admission date
+    CLM_ADMSN_DT STRING,                
+
+    -- 13–18 Clinical & utilization
+    ADMTNG_ICD9_DGNS_CD STRING,         
+    CLM_PASS_THRU_PER_DIEM_AMT NUMBER,  
+    NCH_BENE_IP_DDCTBL_AMT NUMBER,      
+    NCH_BENE_PTA_COINSRNC_LBLTY_AMT NUMBER, 
+    NCH_BENE_BLOOD_DDCTBL_LBLTY_AMT NUMBER, 
+    CLM_UTLZTN_DAY_CNT NUMBER,           
+
+    -- 19–20 Discharge & DRG
+    NCH_BENE_DSCHRG_DT STRING,           
+    CLM_DRG_CD STRING,                  
+
+    -- 21–30 Diagnosis codes
     ICD9_DGNS_CD_1 STRING,
     ICD9_DGNS_CD_2 STRING,
     ICD9_DGNS_CD_3 STRING,
@@ -98,6 +110,7 @@ CREATE TABLE inpatient_claims (
     ICD9_DGNS_CD_9 STRING,
     ICD9_DGNS_CD_10 STRING,
 
+    -- 31–36 Procedure codes
     ICD9_PRCDR_CD_1 STRING,
     ICD9_PRCDR_CD_2 STRING,
     ICD9_PRCDR_CD_3 STRING,
@@ -105,6 +118,7 @@ CREATE TABLE inpatient_claims (
     ICD9_PRCDR_CD_5 STRING,
     ICD9_PRCDR_CD_6 STRING,
 
+    -- 37–81 HCPCS codes
     HCPCS_CD_1 STRING,
     HCPCS_CD_2 STRING,
     HCPCS_CD_3 STRING,
@@ -151,6 +165,7 @@ CREATE TABLE inpatient_claims (
     HCPCS_CD_44 STRING,
     HCPCS_CD_45 STRING
 );
+
 ```
 
 ---
@@ -166,7 +181,7 @@ CREATE OR REPLACE FILE FORMAT CLAIMS_CSV_FORMAT
     TRIM_SPACE = TRUE
     FIELD_OPTIONALLY_ENCLOSED_BY = '\"'
     NULL_IF = ('', 'NULL')
-    ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE;
+    ERROR_ON_COLUMN_COUNT_MISMATCH = TRUE;
 ```
 
 ### Rationale
@@ -237,6 +252,14 @@ Result:
 
 ```sql
 SELECT *
+FROM RAW.inpatient_claims
+LIMIT 10;
+```
+
+### 7.5 Post Correction Check
+
+```sql
+SELECT PRVDR_NUM, CLM_ADMSN_DT
 FROM RAW.inpatient_claims
 LIMIT 10;
 ```
