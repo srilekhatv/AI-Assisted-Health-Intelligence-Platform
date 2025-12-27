@@ -30,4 +30,4 @@ select
     2010 as beneficiary_year,
     'CMS DE-SynPUF' as record_source
 
-from RAW.BENEFICIARY_2010
+from {{ source('cms_beneficiary_raw', 'BENEFICIARY_2010') }}

@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: cms_beneficiary_raw
+    database: HOSPITAL_DB
+    schema: RAW
+    description: "CMS DE-SynPUF beneficiary raw ingestion tables"
+
+    tables:
+      - name: BENEFICIARY_2008
+        description: "Raw CMS beneficiary data for year 2008"
+
+      - name: BENEFICIARY_2009
+        description: "Raw CMS beneficiary data for year 2009"
+
+      - name: BENEFICIARY_2010
+        description: "Raw CMS beneficiary data for year 2010"
