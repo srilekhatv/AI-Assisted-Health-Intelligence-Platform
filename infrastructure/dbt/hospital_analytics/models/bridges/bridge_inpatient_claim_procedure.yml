@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: bridge_inpatient_claim_procedure
+    description: >
+      Bridge table linking inpatient claims to ICD-9 procedure codes.
+      One row per procedure per claim, preserving procedure order and
+      primary procedure flag.
+
+    columns:
+      - name: claim_id
+        tests:
+          - not_null
+
+      - name: procedure_code
+        tests:
+          - not_null
+
+      - name: procedure_position
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1,2,3,4,5,6]
+
+      - name: is_primary_procedure
+        description: Indicates whether the procedure is the primary procedure
+
+      - name: segment
+        description: CMS segment for lineage

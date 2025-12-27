@@ -43,3 +43,6 @@ models:
       +schema: ANALYTICS
       +materialized: table
 
+    bridges:           
+      +schema: ANALYTICS
+

@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: bridge_inpatient_claim_diagnosis
+    description: >
+      Bridge table linking inpatient claims to ICD-9 diagnosis codes.
+      One row per diagnosis per claim, preserving diagnosis position and
+      principal diagnosis flag to prevent row explosion in analytics.
+
+    columns:
+      - name: claim_id
+        description: Unique identifier for the inpatient claim
+        tests:
+          - not_null
+
+      - name: diagnosis_code
+        description: ICD-9 diagnosis code associated with the claim
+        tests:
+          - not_null
+
+      - name: diagnosis_position
+        description: Position of the diagnosis code on the claim (1 = principal)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1,2,3,4,5,6,7,8,9,10]
+
+      - name: is_principal_diagnosis
+        description: Flag indicating whether the diagnosis is the principal diagnosis
+
+      - name: segment
+        description: CMS segment identifier for lineage and debugging
+
+
