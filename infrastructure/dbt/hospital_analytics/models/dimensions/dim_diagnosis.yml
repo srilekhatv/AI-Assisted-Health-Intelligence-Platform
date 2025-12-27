@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_diagnosis
+    description: >
+      Code-level diagnosis dimension derived from inpatient claims.
+      One row per ICD-9 diagnosis code used in CMS inpatient claims.
+
+    columns:
+      - name: diagnosis_key
+        tests:
+          - not_null
+          - unique
+
+      - name: diagnosis_code
+        tests:
+          - not_null
+          - unique

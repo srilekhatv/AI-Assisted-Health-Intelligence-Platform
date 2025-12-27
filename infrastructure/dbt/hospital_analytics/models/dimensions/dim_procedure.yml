@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_procedure
+    description: >
+      Code-level procedure dimension derived from inpatient claims.
+      One row per ICD-9 procedure code used in CMS inpatient claims.
+
+    columns:
+      - name: procedure_key
+        tests:
+          - not_null
+          - unique
+
+      - name: procedure_code
+        tests:
+          - not_null
+          - unique
