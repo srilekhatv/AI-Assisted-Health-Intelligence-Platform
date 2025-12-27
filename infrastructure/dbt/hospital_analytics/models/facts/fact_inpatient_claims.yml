@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: fact_inpatient_claims
+    description: "Fact table for inpatient claims at claim-segment grain (CMS DE-SynPUF)"
+
+    columns:
+      - name: fact_claim_key
+        description: "Surrogate primary key for inpatient claim fact"
+        tests:
+          - not_null
+          - unique
+
+      - name: beneficiary_key
+        description: "Foreign key to beneficiary dimension"
+        tests:
+          - not_null
+
+      - name: provider_key
+        description: "Foreign key to provider dimension"
+        tests:
+          - not_null
+
+      - name: admission_date_key
+        description: "Foreign key to date dimension (admission date)"
+        tests:
+          - not_null
+
+      - name: discharge_date_key
+        description: "Foreign key to date dimension (discharge date)"
+        tests:
+          - not_null
