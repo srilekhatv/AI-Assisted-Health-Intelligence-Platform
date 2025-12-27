@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    database: HOSPITAL_DB
+    schema: RAW
+    tables:
+      - name: inpatient_claims
+        description: "CMS DE-SynPUF Inpatient Claims RAW table"
