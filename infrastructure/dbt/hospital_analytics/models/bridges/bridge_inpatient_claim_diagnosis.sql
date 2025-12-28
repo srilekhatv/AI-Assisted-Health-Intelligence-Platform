@@ -45,15 +45,33 @@ unpivoted as (
     union all
     select claim_id, segment, ICD9_DGNS_CD_10, 10 from source
 
+),
+
+cleaned as (
+
+    select
+        claim_id,
+        segment,
+        diagnosis_code,
+        diagnosis_position,
+        diagnosis_position = 1 as is_principal_diagnosis
+    from unpivoted
+    where diagnosis_code is not null
+      and diagnosis_code <> '0'
+
 )
 
 select
-    claim_id,
-    diagnosis_code,
-    diagnosis_position,
-    diagnosis_position = 1 as is_principal_diagnosis,
-    segment
+    f.fact_claim_key,
+    d.diagnosis_key,
+    c.diagnosis_position,
+    c.is_principal_diagnosis
 
-from unpivoted
-where diagnosis_code is not null
-  and diagnosis_code <> '0'
+from cleaned c
+
+join {{ ref('fact_inpatient_claims') }} f
+  on c.claim_id = f.claim_id
+ and c.segment = f.segment
+
+join {{ ref('dim_diagnosis') }} d
+  on c.diagnosis_code = d.diagnosis_code
